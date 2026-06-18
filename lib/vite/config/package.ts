@@ -51,9 +51,9 @@ function definePackageConfig(defineOptions: PackageDefineOptions = {}) {
             preserveModulesRoot: "src",
           },
           external: [
-            ...Object.keys(dependencies),
-            ...Object.keys(devDependencies),
-            ...Object.keys(peerDependencies),
+            ...Object.keys(dependencies ?? {}),
+            ...Object.keys(devDependencies ?? {}),
+            ...Object.keys(peerDependencies ?? {}),
           ],
         },
       },

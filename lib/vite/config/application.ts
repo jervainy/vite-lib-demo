@@ -77,11 +77,7 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
         outDir: OUTPUT_DIR,
         reportCompressedSize: false,
         chunkSizeWarningLimit: 1024,
-        rolldownOptions: {
-          output: {
-            manualChunks: {},
-          },
-        },
+        // rolldownOptions may be passed via overrides if needed
       },
       optimizeDeps: {
         include: [

@@ -37,7 +37,7 @@ export function wrapperEnv(envConf: Record<string, any>): ViteEnv {
       }
     }
 
-    viteEnv[key] = personName;
+    (viteEnv as Record<string, any>)[key] = personName;
     if (typeof personName === "string") {
       process.env[key] = personName;
     } else if (typeof personName === "object") {

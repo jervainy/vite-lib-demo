@@ -20,9 +20,7 @@ export const commonConfig: (mode: string) => UserConfig = (mode) => ({
   build: {
     reportCompressedSize: false,
     chunkSizeWarningLimit: 1500,
-    rolldownOptions: {
-      maxParallelFileOps: 3,
-    },
+    // rolldownOptions may be passed via overrides if needed
   },
   plugins: [],
 });

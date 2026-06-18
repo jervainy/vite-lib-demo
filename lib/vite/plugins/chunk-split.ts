@@ -6,7 +6,9 @@ export function configChunkSplitPlugin() {
     useEntryName: true,
     customSplitting: {
       "vue-vendor": ["vue", "vue-router", "pinia"],
-      mockjs: ["mockjs"],
+      // add custom vendor chunks here, e.g.:
+      // vue-vendor: ["vue", "vue-router", "pinia"],
+      // mockjs: ["mockjs"],
       "your-shared-lib": [
         // add shared library packages here, e.g.:
         // "my-shared-apis",
