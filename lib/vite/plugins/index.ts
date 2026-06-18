@@ -6,14 +6,8 @@ import legacy from "@vitejs/plugin-legacy";
 import purgeIcons from "vite-plugin-purge-icons";
 import { configChunkSplitPlugin } from "./chunk-split";
 import { configHtmlPlugin } from "./html";
-import { configMockPlugin } from "./mock";
 import { configCompressPlugin } from "./compress";
-import { configVisualizerConfig } from "./visualizer";
-import { configSvgIconsPlugin } from "./svg-icons";
-import { configUnocssPlugin } from "./unocss";
 import { createConfigPlugin } from "./config";
-import { configHttpsPlugin } from "./https";
-import MonoRepoAliasPlugin from "./monorepo";
 
 export async function configVitePlugins(
   root: string,
@@ -21,7 +15,6 @@ export async function configVitePlugins(
   isBuild: boolean,
 ) {
   const {
-    VITE_USE_MOCK,
     VITE_LEGACY,
     VITE_BUILD_COMPRESS,
     VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE,
@@ -32,8 +25,7 @@ export async function configVitePlugins(
     vue({
       template: {
         compilerOptions: {
-          isCustomElement: (tag) =>
-            tag.startsWith("micro-app") || tag.startsWith("dcp-jssdk-"),
+          isCustomElement: (tag) => tag.startsWith("micro-app"),
         },
       },
     }),
@@ -48,27 +40,10 @@ export async function configVitePlugins(
   // vite-plugin-html
   vitePlugins.push(await configHtmlPlugin(root, viteEnv, isBuild));
 
-  // unocss
-  vitePlugins.push(configUnocssPlugin());
   vitePlugins.push(createConfigPlugin());
-
-  // vite-plugin-svg-icons
-  vitePlugins.push(configSvgIconsPlugin(isBuild));
-
-  // vite-plugin-mock
-  VITE_USE_MOCK && vitePlugins.push(configMockPlugin(isBuild) as PluginOption);
 
   // vite-plugin-purge-icons
   vitePlugins.push(purgeIcons());
-
-  // rollup-plugin-visualizer
-  vitePlugins.push(configVisualizerConfig());
-
-  // http2
-  vitePlugins.push(configHttpsPlugin(viteEnv));
-
-  // MonorepoSupport
-  vitePlugins.push(MonoRepoAliasPlugin());
 
   // The following plugins only work in the production environment
   if (isBuild) {

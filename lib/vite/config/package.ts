@@ -6,10 +6,19 @@ import dts from "vite-plugin-dts";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import libAssets from "@laynezh/vite-plugin-lib-assets";
-import { commonConfig, DefineOptions } from "./common";
+import { commonConfig, type DefineOptions } from "./common";
 
-function definePackageConfig(defineOptions: DefineOptions = {}) {
+export interface PackageDefineOptions extends DefineOptions {
+  options?: {
+    enableDts: boolean;
+    /** Library entry file, defaults to "src/index.ts" */
+    entry?: string;
+  };
+}
+
+function definePackageConfig(defineOptions: PackageDefineOptions = {}) {
   const { overrides = {}, options = { enableDts: true } } = defineOptions;
+  const { entry = "src/index.ts" } = options;
   const root = process.cwd();
 
   return defineConfig(async ({ mode }) => {
@@ -29,11 +38,11 @@ function definePackageConfig(defineOptions: DefineOptions = {}) {
         sourcemap: false,
         cssCodeSplit: false,
         lib: {
-          entry: "src/index.ts",
+          entry,
           formats: ["es"],
         },
         rolldownOptions: {
-          input: ["src/index.ts"],
+          input: [entry],
           output: {
             format: "es",
             dir: "dist",

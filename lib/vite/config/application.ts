@@ -11,7 +11,7 @@ import { readPackageJSON } from "pkg-types";
 import { OUTPUT_DIR } from "./constants";
 import { configVitePlugins } from "../plugins";
 import { resolveProxy, wrapperEnv } from "../utils";
-import { commonConfig, DefineOptions } from "./common";
+import { commonConfig, type DefineOptions } from "./common";
 
 function defineApplicationConfig(defineOptions: DefineOptions = {}) {
   const { overrides = {} } = defineOptions;
@@ -37,8 +37,8 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
       resolve: {
         alias: {
           "@": `${resolve(root, "src")}`,
-          "vue-i18n": "vue-i18n/dist/vue-i18n.cjs.js",
-          vue: "vue/dist/vue.esm-bundler.js",
+          // Add framework aliases as needed:
+          // vue: "vue/dist/vue.esm-bundler.js",
         },
       },
       define: {
@@ -84,7 +84,10 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
         },
       },
       optimizeDeps: {
-        include: ["dayjs/locale/en", "dayjs/locale/zh-cn"],
+        include: [
+          // add pre-bundled dependencies here, e.g.:
+          // "dayjs/locale/en",
+        ],
       },
       plugins: await configVitePlugins(
         root,

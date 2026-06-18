@@ -70,4 +70,6 @@ export function resolveProxy(proxyList: [string, string][] = [], opts: string) {
       ...options,
     };
   }
+
+  return proxy;
 }

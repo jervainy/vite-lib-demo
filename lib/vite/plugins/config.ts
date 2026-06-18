@@ -1,5 +1,5 @@
 import type { PluginOption } from "vite";
-import { writeFileSync, mkdirp, readFileSync } from "fs-extra";
+import { writeFileSync, mkdirs, readFileSync } from "fs-extra";
 import pic from "picocolors";
 import { resolve } from "path";
 import dotenv from "dotenv";
@@ -100,7 +100,7 @@ function createConfig(params: Options) {
     });
     ${getPackageInfo()}
     `.replace(/\s/g, "");
-    mkdirp(resolve(process.cwd(), OUTPUT_DIR));
+    mkdirs(resolve(process.cwd(), OUTPUT_DIR));
     writeFileSync(
       resolve(process.cwd(), `${OUTPUT_DIR}/${configFileName}`),
       configStr,

@@ -7,12 +7,15 @@ export function configChunkSplitPlugin() {
     customSplitting: {
       "vue-vendor": ["vue", "vue-router", "pinia"],
       mockjs: ["mockjs"],
-      "dcp-client-shared": [
-        "@dcp-client-shared/apis",
-        "@dcp-client-shared/constants",
-        "@dcp-client-shared/hooks",
+      "your-shared-lib": [
+        // add shared library packages here, e.g.:
+        // "my-shared-apis",
+        // "my-shared-hooks",
       ],
-      "micro-app": ["@micro-zoe/micro-app"],
+      "micro-app": [
+        // add micro-frontend packages here, e.g.:
+        // "@micro-zoe/micro-app",
+      ],
     },
   });
 }
