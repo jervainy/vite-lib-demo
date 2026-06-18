@@ -3,17 +3,21 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "main": "./dist/counter.js",
+  "types": "./dist/lib/main.d.ts",
   "exports": {
-    "types": "./index.d.ts",
-    "default": "./dist/counter.js"
+    ".": {
+      "types": "./dist/lib/main.d.ts",
+      "import": "./dist/counter.js",
+      "default": "./dist/counter.js"
+    }
   },
   "files": [
-    "dist",
-    "index.d.ts"
+    "dist"
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build"
+    "build": "vite build && tsc"
   },
   "devDependencies": {
     "typescript": "~6.0.2",
