@@ -10,6 +10,7 @@ import { resolve } from "path";
 import { readPackageJSON } from "pkg-types";
 import { OUTPUT_DIR } from "./constants";
 import { configVitePlugins } from "../plugins";
+import { configCodeSplitting } from "./code-splitting";
 import { resolveProxy, wrapperEnv } from "../utils";
 import { commonConfig, type DefineOptions } from "./common";
 
@@ -92,7 +93,8 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
       ),
     };
     const mergedConfig = mergeConfig(commonConfig(mode), applicationConfig);
-    return mergeConfig(mergedConfig, overrides);
+    const withCodeSplitting = mergeConfig(mergedConfig, configCodeSplitting());
+    return mergeConfig(withCodeSplitting, overrides);
   });
 }
 

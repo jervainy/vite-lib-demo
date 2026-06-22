@@ -1,11 +1,9 @@
 import { resolve } from "path";
-import type { UserConfig } from "vite";
-import { defineConfig, mergeConfig } from "vite";
 import { readPackageJSON } from "pkg-types";
+import { defineConfig, mergeConfig, type UserConfig } from "vite";
 import dts from "vite-plugin-dts";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
-import libAssets from "@laynezh/vite-plugin-lib-assets";
 import { commonConfig, type DefineOptions } from "./common";
 
 export interface PackageDefineOptions extends DefineOptions {
@@ -16,9 +14,8 @@ export interface PackageDefineOptions extends DefineOptions {
   };
 }
 
-function definePackageConfig(defineOptions: PackageDefineOptions = {}) {
+function definePackageConfig(defineOptions: DefineOptions = {}) {
   const { overrides = {}, options = { enableDts: true } } = defineOptions;
-  const { entry = "src/index.ts" } = options;
   const root = process.cwd();
 
   return defineConfig(async ({ mode }) => {
@@ -38,11 +35,11 @@ function definePackageConfig(defineOptions: PackageDefineOptions = {}) {
         sourcemap: false,
         cssCodeSplit: false,
         lib: {
-          entry,
+          entry: "src/index.ts",
           formats: ["es"],
         },
         rolldownOptions: {
-          input: [entry],
+          input: ["src/index.ts"],
           output: {
             format: "es",
             dir: "dist",
@@ -71,10 +68,6 @@ function definePackageConfig(defineOptions: PackageDefineOptions = {}) {
             rollupTypes: true,
             logLevel: "error",
           }),
-        libAssets({
-          name: "[name].[contenthash:8].[ext]",
-          limit: 0,
-        }),
       ],
     };
     const mergedConfig = mergeConfig(commonConfig(mode), packageConfig);

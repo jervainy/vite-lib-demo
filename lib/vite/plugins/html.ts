@@ -1,5 +1,5 @@
+import type { PluginOption } from "vite";
 import { readPackageJSON } from "pkg-types";
-import { createHtmlPlugin } from "vite-plugin-html";
 import { GLOB_CONFIG_FILE_NAME } from "../config/constants";
 import type { ViteEnv } from "../utils";
 
@@ -7,38 +7,31 @@ export async function configHtmlPlugin(
   root: string,
   env: ViteEnv,
   isBuild: boolean,
-) {
+): Promise<PluginOption> {
   const { VITE_GLOB_APP_TITLE, VITE_PUBLIC_PATH } = env;
-  const { version } = await readPackageJSON(root);
 
-  const path = VITE_PUBLIC_PATH.endsWith("/")
+  const basePath = VITE_PUBLIC_PATH.endsWith("/")
     ? VITE_PUBLIC_PATH
     : `${VITE_PUBLIC_PATH}/`;
 
-  const getAppConfigSrc = () => {
-    return `${path || "/"}${GLOB_CONFIG_FILE_NAME}?v=${version}-${new Date().getTime()}`;
-  };
+  const { version } = await readPackageJSON(root);
+  const appConfigSrc = `${basePath || "/"}${GLOB_CONFIG_FILE_NAME}?v=${version}-${new Date().getTime()}`;
 
-  const htmlPlugin = createHtmlPlugin({
-    minify: isBuild,
-    inject: {
-      // Inject data into ejs template
-      data: {
-        title: VITE_GLOB_APP_TITLE,
-      },
-      // Embed the generated app.config.js file
-      tags: isBuild
-        ? [
-            {
-              tag: "script",
-              attrs: {
-                src: getAppConfigSrc(),
-              },
-            },
-          ]
-        : [],
+  return {
+    name: "html-config",
+    transformIndexHtml(html) {
+      // 1. 替换 EJS 模板变量
+      let result = html.replace(/<%= title %>/g, VITE_GLOB_APP_TITLE);
+
+      // 2. 生产环境注入 _app.config.js
+      if (isBuild) {
+        result = result.replace(
+          "</body>",
+          `<script src="${appConfigSrc}"></script></body>`,
+        );
+      }
+
+      return result;
     },
-  });
-
-  return htmlPlugin;
+  };
 }

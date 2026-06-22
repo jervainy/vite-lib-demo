@@ -1,26 +1,30 @@
 import type { PluginOption } from "vite";
-import compressPlugin from "vite-plugin-compression";
+import { compression, type Algorithm } from "vite-plugin-compression2";
 
 export function configCompressPlugin(
   compress: string,
   deleteOriginFile = false,
-) {
+): PluginOption[] {
   const compressList = compress.split(",");
 
-  const plugins: PluginOption[] = [];
+  const algorithms: Algorithm[] = [];
 
   if (compressList.includes("gzip")) {
-    plugins.push(compressPlugin({ deleteOriginFile }));
+    algorithms.push("gzip");
   }
 
   if (compressList.includes("brotli")) {
-    plugins.push(
-      compressPlugin({
-        algorithm: "brotliCompress",
-        deleteOriginFile,
-      }),
-    );
+    algorithms.push("brotliCompress");
   }
 
-  return plugins;
+  if (algorithms.length === 0) {
+    return [];
+  }
+
+  return [
+    compression({
+      algorithms,
+      deleteOriginalAssets: deleteOriginFile,
+    }),
+  ];
 }

@@ -3,14 +3,20 @@ import { type UserConfig } from "vite";
 
 export interface DefineOptions {
   overrides?: UserConfig;
-  options?: Record<string, unknown>;
+  options?: {
+    enableDts: boolean;
+  };
+}
+
+function _resolve(dir: string) {
+  return resolve(process.cwd(), dir);
 }
 
 export const commonConfig: (mode: string) => UserConfig = (mode) => ({
   resolve: {
     alias: {
-      "@": resolve(process.cwd(), "src"),
-      "#": resolve(process.cwd(), "types"),
+      "@": _resolve("src"),
+      "#": _resolve("types"),
     },
     extensions: [".mjs", ".js", ".mts", ".ts", ".jsx", ".tsx", ".json", ".vue"],
   },

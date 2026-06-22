@@ -1,6 +1,7 @@
 import type { ProxyOptions } from "vite";
 
 export interface ViteEnv {
+  [key: string]: any;
   VITE_USE_MOCK: boolean;
   VITE_USE_PWA: boolean;
   VITE_PUBLIC_PATH: string;
