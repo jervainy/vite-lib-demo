@@ -13,15 +13,15 @@ export default defineConfig({
   build: {
     lib: {
       entry: {
-        // "vite/index": "./lib/vite/index.ts",
-        "tsconfig/base": "./lib/tsconfig/base.json",
+        "vite/index": "./src/vite/index.ts",
+        // "tsconfig/base": "./src/tsconfig/base.json",
       },
       formats: ["es"],
     },
     rolldownOptions: {
       output: {
         preserveModules: true,
-        preserveModulesRoot: "lib",
+        preserveModulesRoot: "src",
       },
       external: [
         ...Object.keys(dependencies),

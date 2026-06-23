@@ -14,13 +14,13 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "outDir": "./dist",
-    "rootDir": "./lib",
+    "rootDir": "./src",
 
     /* Linting */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
   },
-  "include": ["lib"]
+  "include": ["src"],
 }
