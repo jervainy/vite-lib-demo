@@ -1,10 +1,9 @@
 import { resolve } from "path";
 import { readPackageJSON } from "pkg-types";
 import {
-  BuildOptions,
+  type BuildOptions,
   defineConfig,
   mergeConfig,
-  minify,
   type UserConfig,
 } from "vite";
 import dts from "vite-plugin-dts";
@@ -42,8 +41,8 @@ function defineJSSDKConfig(defineOptions: DefineOptions = {}, debug = false) {
           preserveModulesRoot: "src",
         },
         external: [
-          ...Object.keys(devDependencies),
-          ...Object.keys(peerDependencies),
+          ...Object.keys(devDependencies ?? {}),
+          ...Object.keys(peerDependencies ?? {}),
           /dcp-design/,
           /element-plus/,
         ],
@@ -62,8 +61,8 @@ function defineJSSDKConfig(defineOptions: DefineOptions = {}, debug = false) {
       outDir: "./dist",
       rollupOptions: {
         external: [
-          ...Object.keys(devDependencies),
-          ...Object.keys(peerDependencies),
+          ...Object.keys(devDependencies ?? {}),
+          ...Object.keys(peerDependencies ?? {}),
           /dcp-design/,
           /element-plus/,
         ],

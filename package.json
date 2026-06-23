@@ -10,14 +10,62 @@
       "types": "./dist/vite/index.d.ts",
       "import": "./dist/vite/index.js",
       "default": "./dist/vite/index.js"
-    }
+    },
+    "./lint/*": {
+      "import": "./dist/lint/*.js",
+      "default": "./dist/lint/*.js"
+    },
+    "./tsconfig/*": "./dist/tsconfig/*.json"
   },
   "files": [
     "dist"
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build && tsc"
+  },
+  "peerDependencies": {
+    "vite": "^8.1.0-beta.0",
+    "@vitejs/plugin-legacy": "^8.1.0-beta.0",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "@vitejs/plugin-vue-jsx": "^5.0.0",
+    "vite-plugin-dts": "^3.9.0",
+    "vite-plugin-compression2": "^2.5.0",
+    "vite-plugin-fake-server": "^2.2.0",
+    "vite-plugin-mkcert": "^2.1.0",
+    "vite-plugin-svg-icons-ng": "^1.9.0",
+    "rollup-plugin-visualizer": "^7.0.0",
+    "unocss": "^66.0.0",
+    "pkg-types": "^1.1.0",
+    "picocolors": "^1.0.0",
+    "dotenv": "^16.0.0",
+    "fast-glob": "^3.3.0",
+    "dayjs": "^1.11.0",
+    "fs-extra": "^11.0.0",
+    "lodash-es": "^4.17.0"
+  },
+  "peerDependenciesMeta": {
+    "rollup-plugin-visualizer": {
+      "optional": true
+    },
+    "unocss": {
+      "optional": true
+    },
+    "vite-plugin-compression2": {
+      "optional": true
+    },
+    "vite-plugin-fake-server": {
+      "optional": true
+    },
+    "vite-plugin-mkcert": {
+      "optional": true
+    },
+    "vite-plugin-svg-icons-ng": {
+      "optional": true
+    },
+    "@vitejs/plugin-legacy": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@commitlint/cli": "^17.8.1",
@@ -26,7 +74,7 @@
     "@types/lodash-es": "^4.17.12",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
-    "@vitejs/plugin-legacy": "^8.0.2",
+    "@vitejs/plugin-legacy": "^8.1.0-beta.0",
     "@vitejs/plugin-vue": "^6.0.0",
     "@vitejs/plugin-vue-jsx": "^5.0.0",
     "commitizen": "^4.3.0",
@@ -58,7 +106,7 @@
     "terser": "^5.31.1",
     "typescript": "~6.0.2",
     "unocss": "^66.7.2",
-    "vite": "^8.0.16",
+    "vite": "^8.1.0-beta.0",
     "vite-plugin-compression2": "^2.5.3",
     "vite-plugin-dts": "^3.9.1",
     "vite-plugin-fake-server": "^2.2.3",
