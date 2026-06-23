@@ -2,7 +2,6 @@ import type { Alias, Plugin } from "vite";
 import fs from "fs";
 import path from "path";
 import glob from "fast-glob";
-import { find, split, join, isEmpty } from "lodash-es";
 import pic from "picocolors";
 
 const { bold, cyan, gray, green } = pic;
@@ -83,9 +82,9 @@ class TreeNode<T> {
   ): TreeNode<T> | null {
     for (let i = 0; i < paths.length; i++) {
       const [currentPath, ...nextPaths] = paths;
-      const child = find(this.children, (node) => node.path === currentPath);
+      const child = this.children.find((node) => node.path === currentPath);
       if (child) {
-        if (isEmpty(nextPaths)) {
+        if (nextPaths.length === 0) {
           return child;
         } else {
           return child.findByPath(nextPaths, createWhenNotFound);
@@ -93,7 +92,7 @@ class TreeNode<T> {
       } else if (createWhenNotFound) {
         const childNode = new TreeNode<T>(currentPath, undefined, this);
         this.addChild(childNode);
-        if (isEmpty(nextPaths)) {
+        if (nextPaths.length === 0) {
           return childNode;
         } else {
           return childNode.findByPath(nextPaths, createWhenNotFound);
@@ -261,18 +260,18 @@ export const createAlias = (options: Options): Alias => {
       }
 
       // Pkg的根路径分割结果
-      const paths = split(pkgPath, path.sep).filter((p) => p !== "");
+      const paths = pkgPath.split(path.sep).filter((p) => p !== "");
       // 分割别名对应的相对路径路径。代码实际导入的时候都会使用'/'，不需要使用Path.sep
-      const componentPaths = split(updatedId, "/").filter((p) => p !== "");
+      const componentPaths = updatedId.split("/").filter((p) => p !== "");
       const componentNode = pkgData.componentCache.findByPath(
         componentPaths,
         true,
       );
       if (componentNode) {
-        if (isEmpty(componentNode.val)) {
+        if (!componentNode.val) {
           let realPath;
           const componentPath =
-            baseRoot + join([...paths, ...componentPaths], "/");
+            baseRoot + [...paths, ...componentPaths].join("/");
           if (fs.existsSync(componentPath)) {
             // import路径存在，确定是文件还是文件夹，分别处理
             if (fs.statSync(componentPath).isDirectory()) {
@@ -286,8 +285,7 @@ export const createAlias = (options: Options): Alias => {
                 realPath = components[0];
               } else {
                 // vue和js(ts|js)同时存在优先(js|ts)
-                const fileTsOrJs = find(
-                  components,
+                const fileTsOrJs = components.find(
                   (c) => c.endsWith(".ts") || c.endsWith(".js"),
                 );
                 if (fileTsOrJs) {

@@ -39,7 +39,7 @@ export default defineConfig({
       entry: {
         "vite/index": "./src/vite/index.ts",
         "lint/commitlint": "./src/lint/commitlint.js",
-        "lint/cz-config": "./src/lint/cz-config.js",
+        "lint/prettier": "./src/lint/prettier.js",
         "lint/stylelint": "./src/lint/stylelint.js",
       },
       formats: ["es"],
@@ -50,7 +50,6 @@ export default defineConfig({
         preserveModulesRoot: "src",
       },
       external: (id: string) => {
-        console.log("[external]", id);
         // 相对路径 → 保留打包
         if (id.startsWith(".")) return false;
         // @/ 别名 → 保留打包
