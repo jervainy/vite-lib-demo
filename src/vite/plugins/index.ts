@@ -53,7 +53,7 @@ export async function configVitePlugins(
 
   VITE_USE_MOCK && vitePlugins.push(configMockPlugin(isBuild) as PluginOption);
 
-  vitePlugins.push(configVisualizerConfig());
+  vitePlugins.push(await configVisualizerConfig());
 
   vitePlugins.push(configHttpsPlugin(viteEnv));
 

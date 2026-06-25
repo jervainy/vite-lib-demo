@@ -42,13 +42,20 @@ export default defineConfig({
         "lint/prettier": "./src/lint/prettier.js",
         "lint/stylelint": "./src/lint/stylelint.js",
       },
-      formats: ["es"],
     },
     rolldownOptions: {
-      output: {
-        preserveModules: true,
-        preserveModulesRoot: "src",
-      },
+      output: [
+        {
+          format: "es",
+          preserveModules: true,
+          preserveModulesRoot: "src",
+          entryFileNames: "[name].mjs",
+          chunkFileNames: "[name].mjs",
+        },
+        {
+          format: "cjs",
+        },
+      ],
       external: (id: string) => {
         // 相对路径 → 保留打包
         if (id.startsWith(".")) return false;
