@@ -37,7 +37,7 @@ function definePackageConfig(defineOptions: PackageDefineOptions = {}) {
           entry: entries,
         },
         rolldownOptions: {
-          input: Object.values(entries),
+          input: entries,
           output: [
             {
               format: "es",
@@ -47,8 +47,6 @@ function definePackageConfig(defineOptions: PackageDefineOptions = {}) {
             },
             {
               format: "cjs",
-              preserveModules: true,
-              preserveModulesRoot: "src",
               entryFileNames: "[name].cjs",
             },
           ],

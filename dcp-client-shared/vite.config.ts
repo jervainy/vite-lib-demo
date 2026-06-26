@@ -4,7 +4,7 @@ export default definePackageConfig({
   options: {
     entry: {
       "constants/index": "src/constants/index.ts",
-      "types/config": "src/types/config.ts",
+      "types/index": "src/types/index.ts",
     },
   },
 });

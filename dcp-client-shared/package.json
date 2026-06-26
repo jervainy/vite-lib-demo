@@ -15,9 +15,9 @@
       "types": "./dist/constants/index.d.ts"
     },
     "./types": {
-      "import": "./dist/types/config.mjs",
-      "require": "./dist/types/config.cjs",
-      "types": "./dist/types/config.d.ts"
+      "import": "./dist/types/index.mjs",
+      "require": "./dist/types/index.cjs",
+      "types": "./dist/types/index.d.ts"
     }
   },
   "scripts": {
