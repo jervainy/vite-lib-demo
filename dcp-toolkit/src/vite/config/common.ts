@@ -4,7 +4,7 @@ import { type UserConfig } from "vite";
 export interface DefineOptions {
   overrides?: UserConfig;
   options?: {
-    enableDts: boolean;
+    enableDts?: boolean;
   };
 }
 

@@ -9,12 +9,7 @@ import {
 import dts from "vite-plugin-dts";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
-import { commonConfig } from "./common";
-
-interface DefineOptions {
-  overrides?: UserConfig;
-  options?: {};
-}
+import { commonConfig, type DefineOptions } from "./common";
 
 function defineJSSDKConfig(defineOptions: DefineOptions = {}, debug = false) {
   const { overrides = {} } = defineOptions;
