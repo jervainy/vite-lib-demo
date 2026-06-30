@@ -26,10 +26,11 @@
   "devDependencies": {
     "dcp-toolkit": "file:../dcp-toolkit",
     "typescript": "~6.0.2",
-    "vite": "^8.1.0-beta.0",
+    "vite": "^8.1.0",
     "vue": "^3.4.0"
   },
   "peerDependencies": {
-    "vue": "^3.4.0"
+    "vue": "^3.4.0",
+    "vue-router": ">=4.3.2"
   }
 }

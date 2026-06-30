@@ -47,6 +47,8 @@ function definePackageConfig(defineOptions: PackageDefineOptions = {}) {
             },
             {
               format: "cjs",
+              preserveModules: true,
+              preserveModulesRoot: "src",
               entryFileNames: "[name].cjs",
             },
           ],
